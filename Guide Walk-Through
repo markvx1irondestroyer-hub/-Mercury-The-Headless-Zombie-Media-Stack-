@@ -40,7 +40,23 @@ The Golden YAML deploys the following suite:
  * Automation: Sonarr (TV), Radarr (Movies), Prowlarr (Indexers).
  * Utility: qBittorrent (Downloads), FlareSolverr (Bypass).(Optional) you can find and add ARM for adding physical 
    Media Blu-rays And DVD with Compatible Drives please check all Hard Drive and folder Locations match correctly for 
-  Radar Sonar and QBittorrent to work properly 
+  Radar Sonar and QBittorrent to work properly.
+### **Phase 4: The Final Bridge (Web UI Setup)**
+Once the stack is running with `m up`, your "Zombie" is alive, but you must manually configure the connections between the apps. Access each interface via your server's IP address (or `localhost`) at the following ports:
+
+| App | Port | Primary Action |
+| :--- | :--- | :--- |
+| **Jellyfin** | `8096` | Create your admin account and point libraries to `/data/storage`. |
+| **qBittorrent** | `8080` | Set a custom password immediately in **Settings > Web UI**. |
+| **Prowlarr** | `9696` | Add your Indexers here; they will automatically sync to Sonarr/Radarr. |
+| **Radarr/Sonarr** | `7878 / 8989` | **Settings > Download Clients**: Add qBittorrent using the container name as the host. |
+| **Jellyseerr** | `5055` | Connect to your Jellyfin and Radarr/Sonarr via **API Keys** for one-click requests. |
+
+#### **🛠️ Crucial Integration Steps:**
+1. **API Keys**: Navigate to **Settings > General** in Radarr, Sonarr, and Prowlarr to find your unique API Keys. Copy these into **Jellyseerr** and **Prowlarr** to "connect the brain" of the stack.
+2. **Root Folders**: When setting up Sonarr and Radarr, ensure your "Root Folders" are set to `/data/storage` or `/data/expansion`. This tells the apps exactly where to store your media.
+3. **Download Pathing**: In qBittorrent, ensure the save path is directed to your "Landing Zone" on `/data/storage`. Radarr and Sonarr will then automatically move completed files to the "Vault."
+
 ## 💾 Optional: External Storage "Internal Trick"
 If you are using an external USB drive (like the **Expansion** drive) as your primary media Vault, follow these steps to "trick" the system into treating it as a permanent internal drive.
 
