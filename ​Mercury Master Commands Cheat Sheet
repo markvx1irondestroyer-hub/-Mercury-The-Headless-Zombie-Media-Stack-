@@ -1,0 +1,47 @@
+​m up
+
+
+Starts all your media apps in the background.
+
+
+​m gpu
+
+
+Live monitor for your GTX 750 temperature and usage.
+
+
+​m ps
+
+
+Shows exactly which apps are running and their ports.
+
+
+​m reset
+
+
+The "Nuclear" option: wipes cache and restarts the entire stack.
+
+
+​m mount
+
+
+Refreshes and remounts your Expansion drive "Vault."
+
+
+​m status
+
+
+Dashboard view of storage, GPU, and container health.
+
+
+​Quick File Paths
+
+
+​Blueprint: ~/mercury/docker-compose.yml
+
+
+​Vault: /media/linux/Expansion
+
+
+​Configs: ~/mercury/config/
+
