@@ -1,0 +1,25 @@
+name: 🧟 Mercury Stack Validation
+
+# Trigger the check on every push to the 'main' branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Download the code from your repo into the virtual machine
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Verify the YAML syntax is correct
+      - name: Validate Docker Compose Schema
+        run: docker compose config
+
+      # 3. Attempt a "Dry Run" to ensure images are reachable
+      - name: Pull Images (Dry Run)
+        run: docker compose pull
