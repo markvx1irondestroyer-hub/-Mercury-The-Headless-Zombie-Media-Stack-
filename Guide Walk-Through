@@ -1,0 +1,46 @@
+🧟 Mercury: The Headless Zombie Media Stack
+Author: markvx1irondestroyer-hub
+Architecture: Ubuntu/Zorin OS | NVIDIA GTX 750 | Docker Compose
+📖 Overview
+Mercury is a high-availability, headless media server designed to be a "set and forget" solution. It leverages NVIDIA hardware acceleration for transcoding and uses a "Zombie" persistence logic—ensuring that if a service or the system hangs, it can be revived with a single command.
+🛠️ Pre-Deployment Requirements
+Before running the installer, ensure your hardware is ready:
+ * OS: Ubuntu 22.04+ or Zorin OS 16+.
+ * GPU: NVIDIA GTX 750 (or similar) seated and powered.
+ * Storage: At least one secondary drive for media (Paths used: /mnt/DVD_Storage and /media/linux/Expansion).
+🚀 Installation Steps
+1. Clone the Blueprint
+Download your personalized scripts from this repository to your home directory:
+mkdir ~/mercury && cd ~/mercury
+# Download your files from GitHub or copy them into this folder
+
+2. Execute the Foundation Script
+The install.sh script automates the installation of NVIDIA drivers, Docker Engine, and the NVIDIA Container Toolkit. It also configures your system aliases.
+chmod +x install.sh
+./install.sh
+
+Note: The system will automatically reboot after completion to initialize the NVIDIA kernel modules.
+3. Configure Hardware Mounts
+Mercury expects physical drives to be mounted via fstab.
+ * Identify your Drive UUIDs: lsblk -f
+ * Edit fstab: sudo nano /etc/fstab
+ * Add your mounts for DVD_Storage and Expansion.
+🕹️ The "M" Master Command
+Once installed, you no longer need to remember complex Docker commands. Use the single-letter m interface:
+| Command | Function |
+|---|---|
+| m up | Resurrect: Brings the entire Docker stack online in detached mode. |
+| m status | Vitals: Displays real-time drive space, GPU temperature, and container health. |
+| m gpu | Monitor: Live 1-second refresh of the GTX 750 performance. |
+| m ps | Process: Shows which services are running and their network ports. |
+| m reset | Nuclear: Safely stops the stack, prunes system cache, and restarts fresh. |
+📂 The Stack Composition
+The Golden YAML deploys the following suite:
+ * Core: Jellyfin (Media Server), Tailscale (Remote Access), ttyd (Web Terminal).
+ * Automation: Sonarr (TV), Radarr (Movies), Prowlarr (Indexers).
+ * Utility: qBittorrent (Downloads), FlareSolverr (Bypass).(Optional you can find and add ARM for adding physical 
+   Media Blu-rays And DVD with Compatible Drives please check all Hard Drive and folder Locations match correctly for 
+  Radar Sonar and QBittorrent to work properly 
+⚠️ Disclaimer
+Check the Code: Always inspect scripts and command strings before running or piping them into your terminal.
+User Responsibility: By using these scripts, you acknowledge that you are doing so at your own risk. I am not responsible for any data loss, hardware issues, or system instability that may occur.
