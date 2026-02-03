@@ -57,7 +57,7 @@ Once the stack is running with `m up`, your "Zombie" is alive, but you must manu
 2. **Root Folders**: When setting up Sonarr and Radarr, ensure your "Root Folders" are set to `/data/storage` or `/data/expansion`. This tells the apps exactly where to store your media.
 3. **Download Pathing**: In qBittorrent, ensure the save path is directed to your "Landing Zone" on `/data/storage`. Radarr and Sonarr will then automatically move completed files to the "Vault."
 
-## 💾 Optional: External Storage "Internal Trick"
+## 💾 Optional: External Storage "Internal Trick"  (This is so during Reboot Jellyfin and other Apps don't wake up before drive mounts to see empty library and cause errors)
 If you are using an external USB drive (like the **Expansion** drive) as your primary media Vault, follow these steps to "trick" the system into treating it as a permanent internal drive.
 
 ### Benefits:
