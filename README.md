@@ -1,4 +1,4 @@
-![Mercury Stack Status](https://github.com/markvx1irondestroyer-hub/Mercury-The-Headless-Zombie-Media-Stack-/actions/workflows/validate-stack.yml/badge.svg)
+[![🧟 Mercury Stack Validation](https://github.com/markvx1irondestroyer-hub/-Mercury-The-Headless-Zombie-Media-Stack-/actions/workflows/validate-stack.yml/badge.svg)](https://github.com/markvx1irondestroyer-hub/-Mercury-The-Headless-Zombie-Media-Stack-/actions/workflows/validate-stack.yml)
 
 # 🧟 Mercury: The Headless Zombie Media Stack
 User: markvx1irondestroyer-hub
