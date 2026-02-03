@@ -23,17 +23,7 @@ A fully automated installer and Docker stack for a headless media server. Optimi
 | `m ps` | Shows what is running |
 | `m reset` | Nuclear wipe and restart |
 ## 💾 Optional: External Storage "Internal Trick"
-If you are using an external USB drive (like the **Expansion** drive) as your primary media Vault, follow these steps to "trick" the system into treating it as a permanent internal drive.
-
-### Benefits:
-* **Persistence**: The drive mounts automatically at boot.
-* **Safety**: If the drive is unplugged, the system will still boot normally thanks to `nofail` logic.
-* **Permissions**: Automatically sets ownership to PUID 1000 for Docker compatibility.
-
-### How to Run:
-```bash
-chmod +x mount-vault.sh
-./mount-vault.sh
+If you are using an external USB drive (like the **Expansion** drive) as your primary media Vault, 
 
 ​⚠️ Note on Safety & Responsibility
 
