@@ -38,7 +38,7 @@ Once installed, you no longer need to remember complex Docker commands. Use the 
 The Golden YAML deploys the following suite:
  * Core: Jellyfin (Media Server), Tailscale (Remote Access), ttyd (Web Terminal).
  * Automation: Sonarr (TV), Radarr (Movies), Prowlarr (Indexers).
- * Utility: qBittorrent (Downloads), FlareSolverr (Bypass).(Optional you can find and add ARM for adding physical 
+ * Utility: qBittorrent (Downloads), FlareSolverr (Bypass).(Optional) you can find and add ARM for adding physical 
    Media Blu-rays And DVD with Compatible Drives please check all Hard Drive and folder Locations match correctly for 
   Radar Sonar and QBittorrent to work properly 
 ⚠️ Disclaimer
