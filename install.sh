@@ -25,19 +25,24 @@ sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
 # 4. Mercury Environment Setup
+# Creates standard config paths and the 'internalized' Expansion mount point
 mkdir -p ~/mercury/config/{jellyfin,jellyseerr,sonarr,radarr,prowlarr,qbittorrent,flaresolverr,tailscale}
+sudo mkdir -p /media/linux/Expansion
 
 # 5. Inject Master 'm' Command into .bash_aliases
 cat << 'EOF' >> ~/.bash_aliases
+# --- Mercury Master Control ---
 alias gpu='watch -n 1 nvidia-smi'
 alias mercury='cd ~/mercury'
+
 m() {
     case $1 in
-        gpu) gpu ;;
-        up) cd ~/mercury && docker compose up -d ;;
-        ps) docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" ;;
-        reset) cd ~/mercury && docker compose down && docker system prune -f && docker compose up -d ;;
-        *) echo "Usage: m [gpu|up|ps|reset]" ;;
+        gpu)    gpu ;;
+        up)     cd ~/mercury && docker compose up -d ;;
+        ps)     docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" ;;
+        reset)  cd ~/mercury && docker compose down && docker system prune -f && docker compose up -d ;;
+        mount)  sudo mount -a && echo "🧟 Vault Refreshed." ;;
+        *)      echo "Usage: m [gpu|up|ps|reset|mount]" ;;
     esac
 }
 EOF
