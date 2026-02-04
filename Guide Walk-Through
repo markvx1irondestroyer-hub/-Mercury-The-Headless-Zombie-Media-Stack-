@@ -68,8 +68,6 @@ If you are using an external USB drive (like the **Expansion** drive) as your pr
 ### How to Run:
 ```bash
 chmod +x mount-vault.sh
-./mount-vault.sh
-
 ⚠️ Disclaimer
 Check the Code: Always inspect scripts and command strings before running or piping them into your terminal.
 User Responsibility: By using these scripts, you acknowledge that you are doing so at your own risk. I am not responsible for any data loss, hardware issues, or system instability that may occur.
