@@ -90,19 +90,24 @@ Follow these steps to "trick" the system into treating it as a permanent interna
 ```bash
 chmod +x mount-vault.sh
 ./mount-vault.sh
-​🏗️ The Mercury Architecture: Quarantine & Vault Logic
-Unlike standard "hardlink" setups that prioritize speed, the Mercury Server is designed for Data Integrity and Hardware 
-Longevity. It treats storage as two distinct zones to protect the primary collection from corruption and "bad" data.
+🏗️ The Mercury Architecture: Quarantine & Vault Logic
+The Built in extra locations are redundant and can be ignored if only using one Hard drive but they 
+Allow for expansion and upgrades later if you want to add extra storage later just make sure all 
+folders exist in the drive you're using 
+​Unlike standard "hardlink" setups that prioritize speed, the Mercury Server is designed for 
+Data Integrity and Hardware Longevity. It treats storage as two distinct zones to 
+protect the primary collection from corruption and "bad" data.
 ​☣️ Zone 1: The Quarantine (Torrents Drive)
 ​Purpose: All active and completed downloads reside here.
-​Risk Mitigation: Torrenting can be intensive on drive headers and carries a higher risk of "bad" or corrupted files. 
-If this drive fails or the filesystem (exFAT/NTFS) corrupts due to high I/O, the permanent library remains untouched.
-​The Logic: We intentionally use Copy + Delete (instead of Atomic Moves). In the event of a power failure or system crash 
-during a transfer, the original file is preserved in the Quarantine until the copy is verified in the Vault.
+​Risk Mitigation: Torrenting can be intensive on drive headers and carries a higher risk of "bad" or 
+corrupted files. If this drive fails or the filesystem (exFAT/NTFS) corrupts due to high I/O, the permanent 
+library remains untouched.
+​The Logic: We intentionally use Copy + Delete (instead of Atomic Moves). In the event of a power failure or 
+system crash during a transfer, the original file is preserved in the Quarantine until the copy is verified in the Vault.
 ​🏛️ Zone 2: The Vault (Expansion Drive)
 ​Purpose: The curated, "approved" library.
-​Safety: This drive only sees sequential write operations when a movie is "promoted" from Quarantine. 
-This minimizes fragmentation and extends the physical life of the drive.
+​Safety: This drive only sees sequential write operations when a movie is "promoted" from Quarantine. This minimizes 
+fragmentation and extends the physical life of the drive.
 ❗️❗️ PRO TIPS
 Add a folder to your phone or pc favs internet tabs with all your Web UIs for quick access 
 Make sure your storage locations match up in all apps ⚠️ SET (QBittorrent Radarr and Sonarr) storage 
