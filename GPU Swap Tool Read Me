@@ -6,7 +6,7 @@
 
 >  * In your terminal, run: nano gpu-swap.sh
 
->  * Paste the script code provided above.
+>  * Paste the script code provided in gpu-swap file.
 
 >  * Save and Exit (Ctrl+O, then Ctrl+X).
 
@@ -53,3 +53,22 @@
 | AMD Radeon | Mesa VA Drivers | nvtop |
 
 | Intel QuickSync | Intel Media Driver | nvtop |
+​⚠️ Note on Safety & Responsibility
+
+
+​While this stack is designed to be a "set and forget" solution, please remember:
+
+
+
+
+​Check the Code: Always inspect scripts and command strings before running or piping them into your terminal.
+
+
+​User Responsibility: By using these scripts, you acknowledge that you are doing so at your own risk.
+
+
+​Disclaimer: I am not responsible for any data loss, hardware issues, or system instability that may occur during the use of this repository.
+
+
+
+
