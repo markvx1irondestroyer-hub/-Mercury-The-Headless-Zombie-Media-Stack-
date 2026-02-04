@@ -12,6 +12,16 @@ Before running the installer, ensure your hardware is ready:
  * Storage: At least one secondary drive for media (Paths used: /mnt/DVD_Storage and /media/linux/Expansion).
  * ⚠️ OPTIONALY if confident you can modify storage paths before you start installing ⚠️CAREFULLY⚠️ 
                                                                                  ⚠️DOUBLE CHECK EVERYTHING⚠️
+​⚠️ Critical: The "Mount-First" Rule
+​In a Docker-based environment, the order of operations is everything. You must always ensure your 
+external drives are mounted and (optionally See below) mount-vault.sh before running the m up command.
+​Why this matters:
+​When Docker starts a container with a volume mapping (e.g., /media/linux/Expansion), it looks for 
+that folder on your host system.
+If the drive is NOT mounted: Docker will see an empty directory on your OS Drive. It will "helpfully" create 
+that folder and start writing your 50GB movies directly to your small SSD/Boot drive, filling it up and crashing your OS.
+The "Ghost" Effect: If you mount the drive after Docker has started, the real drive will "cover up" the folders Docker created. 
+You won't see your files, and you'll be left wondering why your disk space is disappearing.
 🚀 Installation Steps
 1. Clone the Blueprint
 Download your personalized scripts from this repository to your home directory:
@@ -80,7 +90,19 @@ Follow these steps to "trick" the system into treating it as a permanent interna
 ```bash
 chmod +x mount-vault.sh
 ./mount-vault.sh
-
+​🏗️ The Mercury Architecture: Quarantine & Vault Logic
+Unlike standard "hardlink" setups that prioritize speed, the Mercury Server is designed for Data Integrity and Hardware 
+Longevity. It treats storage as two distinct zones to protect the primary collection from corruption and "bad" data.
+​☣️ Zone 1: The Quarantine (Torrents Drive)
+​Purpose: All active and completed downloads reside here.
+​Risk Mitigation: Torrenting can be intensive on drive headers and carries a higher risk of "bad" or corrupted files. 
+If this drive fails or the filesystem (exFAT/NTFS) corrupts due to high I/O, the permanent library remains untouched.
+​The Logic: We intentionally use Copy + Delete (instead of Atomic Moves). In the event of a power failure or system crash 
+during a transfer, the original file is preserved in the Quarantine until the copy is verified in the Vault.
+​🏛️ Zone 2: The Vault (Expansion Drive)
+​Purpose: The curated, "approved" library.
+​Safety: This drive only sees sequential write operations when a movie is "promoted" from Quarantine. 
+This minimizes fragmentation and extends the physical life of the drive.
 ❗️❗️ PRO TIPS
 Add a folder to your phone or pc favs internet tabs with all your Web UIs for quick access 
 Make sure your storage locations match up in all apps ⚠️ SET (QBittorrent Radarr and Sonarr) storage 
