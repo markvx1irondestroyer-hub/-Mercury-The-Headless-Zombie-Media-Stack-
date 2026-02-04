@@ -1,15 +1,15 @@
 #!/bin/bash
-# 🧟 MERCURY: THE HEADLESS ZOMBIE INSTALLER
-# Optimized for markvx1irondestroyer-hub
+# 🧟 MERCURY: THE DESKTOP ZOMBIE INSTALLER (v1.2.3-GUI)
+# Optimized for markvx1irondestroyer-hub - Keeps GUI Active
 
-echo "🚀 Starting Mercury Foundation Install..."
+echo "🚀 Starting Mercury Foundation Install (Desktop Mode)..."
 
-# 1. System & NVIDIA Drivers
+# 1. System, NVIDIA Drivers & Emoji Support
 sudo apt update && sudo apt upgrade -y
+sudo apt install -y fonts-noto-color-emoji ca-certificates curl gnupg
 sudo ubuntu-drivers autoinstall
 
 # 2. Docker Engine & Compose
-sudo apt-get install -y ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
@@ -19,7 +19,7 @@ sudo usermod -aG docker $USER
 
 # 3. NVIDIA Toolkit (Path Corrected for Consistency)
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /etc/apt/keyrings/nvidia-container-toolkit-keyring.gpg
-curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/etc/apt/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 sudo apt update && sudo apt-get install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
@@ -30,7 +30,7 @@ sudo mkdir -p /media/linux/Expansion
 # Ensure the current user owns the config directory for PUID 1000
 sudo chown -R $USER:$USER ~/mercury
 
-# 5. Inject Master 'm' Command into .bash_aliases
+# 5. Inject Master 'm' Command into .bash_aliases (with HEAL and TV)
 cat << 'EOF' >> ~/.bash_aliases
 # --- Mercury Master Control ---
 alias gpu='watch -n 1 nvidia-smi'
@@ -43,12 +43,44 @@ m() {
         ps)     docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" ;;
         reset)  cd ~/mercury && docker compose down && docker system prune -f && docker compose up -d ;;
         mount)  sudo mount -a && echo "🧟 Vault Refreshed." ;;
-        *)      echo "Usage: m [gpu|up|ps|reset|mount]" ;;
+        heal) 
+            echo "🧟 Reviving the Zombie..."
+            sudo mount -a
+            sudo chown -R $USER:$USER /media/linux/Expansion ~/mercury/config
+            cd ~/mercury && docker compose up -d --remove-orphans
+            docker system prune -f
+            echo "✅ Surgery Complete. System Stable."
+            ;;
+        tv)
+            echo "📺 --- SAMSUNG TIZEN SIDELOADER ---"
+            echo "1. Enable Developer Mode on TV (Apps > 12345)"
+            echo "2. Set Host IP to: $(hostname -I | awk '{print $1}')"
+            echo "3. Restart TV (Hold Power button)"
+            read -p "Enter your Samsung TV IP address: " TV_IP
+            docker run --rm --ulimit nofile=1024:65536 \
+              -e JELLYFIN_RELEASE="release-10.8.z" \
+              ghcr.io/georift/install-jellyfin-tizen "$TV_IP"
+            ;;
+        *)      echo "Usage: m [gpu|up|ps|reset|mount|heal|tv]" ;;
     esac
 }
 EOF
 
-echo "🧟 Mercury Core Installed. Rebooting in 5 seconds..."
+# 6. Inject The Login Badge
+cat << 'EOF' >> ~/.bashrc
+echo -e "\e[32m"
+cat << "ZOMBIE"
+      .---.
+     / @ @ \     🧟 MERCURY ZOMBIE SERVER v1.2.3-GUI
+    |  \_  |     -------------------------------
+    |   \_ |     Mode: DESKTOP / UI ACTIVE
+     \  m  /     Type 'm' for Master Commands
+      '---'      
+ZOMBIE
+echo "nom nom nom brains.. the Zombie rises."
+echo -e "\e[0m"
+EOF
+
+echo "🧟 Mercury Core Installed (Desktop). Rebooting in 5 seconds..."
 sleep 5
 sudo reboot
-
