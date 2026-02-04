@@ -17,17 +17,18 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
 
-# 3. NVIDIA Toolkit
-curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+# 3. NVIDIA Toolkit (Path Corrected for Consistency)
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /etc/apt/keyrings/nvidia-container-toolkit-keyring.gpg
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/etc/apt/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 sudo apt update && sudo apt-get install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
 # 4. Mercury Environment Setup
-# Creates standard config paths and the 'internalized' Expansion mount point
 mkdir -p ~/mercury/config/{jellyfin,jellyseerr,sonarr,radarr,prowlarr,qbittorrent,flaresolverr,tailscale}
 sudo mkdir -p /media/linux/Expansion
+# Ensure the current user owns the config directory for PUID 1000
+sudo chown -R $USER:$USER ~/mercury
 
 # 5. Inject Master 'm' Command into .bash_aliases
 cat << 'EOF' >> ~/.bash_aliases
@@ -50,3 +51,4 @@ EOF
 echo "🧟 Mercury Core Installed. Rebooting in 5 seconds..."
 sleep 5
 sudo reboot
+
